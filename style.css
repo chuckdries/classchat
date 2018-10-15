@@ -18,7 +18,22 @@ nav h1 {
 }
 nav ul {
   margin: 0;
-  padding: .5em;
+  list-style-type: none;
+  padding: 10px
+}
+nav ul ul {
+  padding: 0 2em;
+  font-size: .8em;
+}
+nav a {
+  color: #eee;
+  text-decoration: none;
+}
+nav ul ul a {
+  color: #ccc;
+}
+nav a:hover {
+  text-decoration: underline;
 }
 article {
   padding: 10px 20px;
@@ -28,6 +43,5 @@ p {
   max-width: 800px;
 }
 article li {
-  /* margin-bottom: .8em; */
   max-width: 800px;
 }
