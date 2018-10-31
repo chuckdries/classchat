@@ -1,5 +1,5 @@
 {
-  "name": "classchat",
+  "name": "classchat-server",
   "version": "1.0.0",
   "description": "Dead simple communication with classmates.",
   "main": "src/index.js",
