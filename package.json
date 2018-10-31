@@ -1,0 +1,26 @@
+{
+  "name": "classchat",
+  "version": "1.0.0",
+  "description": "Dead simple communication with classmates.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node -r esm src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chuckdries/classchat.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chuckdries/classchat/issues"
+  },
+  "homepage": "https://github.com/chuckdries/classchat#readme",
+  "devDependencies": {
+    "esm": "^3.0.84"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "twig": "^1.12.0"
+  }
+}
