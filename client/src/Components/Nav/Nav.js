@@ -7,7 +7,7 @@ const Nav = React.memo(() => {
     <nav>
       <h1>ClassChat</h1>
       <ul>
-        <li><Link to="/one">one</Link></li>
+        <li><Link to="/class/asu/">one</Link></li>
         <li>two</li>
         <li>three</li>
         <li>four</li>

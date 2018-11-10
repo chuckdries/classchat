@@ -17,7 +17,6 @@ io.on('connection', (socket) => {
     console.log('user disconnected'); // eslint-disable-line no-console
   });
   socket.on('chat message', (msg) => {
-    console.log(`message: ${msg}`); // eslint-disable-line no-console
     io.emit('chat message', msg);
   });
 });
