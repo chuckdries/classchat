@@ -1,0 +1,26 @@
+nav {
+  box-sizing: border-box;
+  width: 300px;
+  float: left;
+  position: fixed;
+  height: 100vh;
+  background: #333;
+  color: white;
+  padding: 0 1em;
+}
+
+nav ul {
+  padding: 0 1em;
+}
+
+nav li {
+  list-style: none;
+}
+
+nav a {
+  color: #ddd;
+}
+
+nav a:hover {
+  color: white;
+}
