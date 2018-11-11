@@ -3,13 +3,22 @@ import { Server } from 'http';
 import path from 'path';
 import socketio from 'socket.io';
 import sqlite from 'sqlite';
+import cookieParser from 'cookie-parser';
+
+import authHandler, { checkAuth } from './auth';
 
 const app = express();
 const http = Server(app);
 const io = socketio(http);
 
+app.use(cookieParser());
+app.set('view engine', 'twig');
+app.use(checkAuth);
+
+app.use(authHandler);
+
 const dbPromise = Promise.resolve()
-  .then(() => sqlite.open('./database.sqlite', { Promise }))
+  .then(() => sqlite.open('./database.sqlite'))
   .then(db => db.migrate({ force: 'last' }));
 
 app.get('/', (req, res) => {
@@ -18,12 +27,11 @@ app.get('/', (req, res) => {
 
 const receiveMsg = async (msg) => {
   const db = await dbPromise;
-  const result = await db.run('INSERT INTO messages (message) VALUES ($message)', {
+  const statement = await db.run('INSERT INTO messages (message) VALUES ($message)', {
     $message: msg,
   });
-  debugger;
   io.emit('message received', {
-    id: result.stmt.lastID,
+    id: statement.stmt.lastID,
     msg,
   });
 };
