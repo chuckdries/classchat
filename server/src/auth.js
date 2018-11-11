@@ -31,7 +31,9 @@ export const checkAuth = async (req, res, next) => {
 
 export const requireAuth = (req, res, next) => {
   if (!req.user) {
-    next('not logged in');
+    // next('not logged in');
+    res.status(401).send('not logged in');
+    return;
   }
   next();
 };
@@ -53,9 +55,29 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
+  const error = 'email or password is incorrect';
+  const {
+    email,
+    password,
+  } = req.params;
+  const db = await dbPromise;
   if (req.user) {
     res.redirect('/');
+    return;
   }
+  const user = await db.get('SELECT * FROM users WHERE email=?', email);
+  if (!user) {
+    res.render('login', { error });
+    return;
+  }
+  const matches = await bcrypt.compare(password, user.passwordHash);
+  if (!matches) {
+    res.render('login', { error });
+    return;
+  }
+  const sessionToken = v4();
+  await db.run('INSERT INTO sessions (userid, sessionToken) VALUES (?,?)', [user.id, sessionToken]);
+  res.cookie('sessionToken', sessionToken);
 });
 
 router.post('/register', async (req, res) => {
@@ -65,11 +87,11 @@ router.post('/register', async (req, res) => {
     password,
   } = req.params;
   if (req.user) {
-    res.status(400).send('user already exists');
+    res.redirect('/');
   }
   const existingUser = await db.get('SELECT * FROM users WHERE email=?', email);
   if (existingUser) {
-    res.status(400).send('user already exists');
+    res.render('register', { error: 'email already in use' });
   }
   const passwordHash = await bcrypt.hash(password, saltOrRounds);
   const statement = await db.run('INSERT INTO users (email, passwordHash) VALUES (?, ?)', [email, passwordHash]);
