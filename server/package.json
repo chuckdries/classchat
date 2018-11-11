@@ -4,7 +4,7 @@
   "description": "Dead simple communication with classmates.",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon -r esm src/index.js",
+    "start": "nodemon -r esm --inspect src/index.js",
     "lint": "eslint src/index.js"
   },
   "repository": {
@@ -27,6 +27,7 @@
     "express": "^4.16.4",
     "nodemon": "^1.18.6",
     "socket.io": "^2.1.1",
+    "sqlite": "^3.0.0",
     "twig": "^1.12.0"
   }
 }

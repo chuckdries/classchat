@@ -24,7 +24,7 @@ class App extends Component {
 
   componentDidMount() {
     this.socket = io.connect(API_URL);
-    this.socket.on('chat message', (msg) => {
+    this.socket.on('message received', (msg) => {
       this.setState({
         messages: R.append(msg, this.state.messages)
       });
@@ -32,7 +32,7 @@ class App extends Component {
   }
 
   sendMsg(msg) {
-    this.socket.emit('chat message', msg);
+    this.socket.emit('message sent', msg);
   }
 
   render() {

@@ -5,7 +5,7 @@ import './conversation.css';
 const Conversation = React.memo(({ messages, sendFunc}) => (
   <div className="conversation">
     <div className="message-container">
-      {messages.map((msg) => <p key={msg}>{msg}</p>)}
+      {messages.map((msg) => <p key={msg.id}>{msg.msg}</p>)}
     </div>
     <Formik
       initialValues={{ message: '' }}
