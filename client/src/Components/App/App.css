@@ -19,6 +19,10 @@
 }
 
 #route-container {
+  box-sizing: border-box;
   margin-left: 330px;
   padding: 2px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }

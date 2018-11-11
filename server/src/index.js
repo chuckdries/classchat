@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  console.log('a user connected'); // eslint-disable-line no-console
+  console.log('user connected'); // eslint-disable-line no-console
   socket.on('disconnect', () => {
     console.log('user disconnected'); // eslint-disable-line no-console
   });
@@ -22,6 +22,6 @@ io.on('connection', (socket) => {
 });
 
 
-http.listen(3000, () => {
-  console.log('listening on http://localhost:3000'); // eslint-disable-line no-console
+http.listen(8080, () => {
+  console.log('listening on http://localhost:8080'); // eslint-disable-line no-console
 });
