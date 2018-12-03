@@ -9,8 +9,8 @@ const Nav = React.memo(({ location }) => {
   return (
     <nav>
       <h1>ClassChat</h1>
-      <h2>{match.params.school}</h2>
-      <h3>{match.params.classcode}</h3>
+      <h2>{match && match.params.school.toUpperCase()}</h2>
+      <h3>{match && match.params.classcode.toUpperCase()}</h3>
       {/* <ul>
         <li><Link to="/class/asu/">one</Link></li>
         <li>two</li>

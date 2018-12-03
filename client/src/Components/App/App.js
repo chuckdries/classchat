@@ -60,7 +60,7 @@ class App extends Component {
           </Switch> */}
           <Switch>
             <Route path="/class/:school/:classcode" component={Class} />
-            <Route path="/" exact component={Home} />
+            <Route path="/" component={Home} />
           </Switch>
           {/* <Conversation messages={messages} sendFunc={sendMsg} /> */}
         </div>

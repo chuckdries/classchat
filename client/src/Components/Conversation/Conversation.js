@@ -17,8 +17,9 @@ const Conversation = ({ messages, sendFunc}) => (
       }}
     >
       {() => (
-        <Form className="message-form">
-          <Field type="text" name="message"/>
+        <Form className="message-form flex">
+          <span className="form-name">Anonymous beaver</span>
+          <Field className="flex-auto" type="text" name="message"/>
           <input type="submit" value="send" />
         </Form>
       )}
