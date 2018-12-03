@@ -2,15 +2,17 @@ import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import './conversation.css';
 
-const Conversation = React.memo(({ messages, sendFunc}) => (
+const Conversation = ({ messages, sendFunc}) => (
   <div className="conversation">
     <div className="message-container">
-      {messages.map((msg) => <p key={msg.id}>{msg.msg}</p>)}
+      {messages.map((msg) => <p key={msg.id}>{msg.message}</p>)}
     </div>
     <Formik
       initialValues={{ message: '' }}
       onSubmit={(values, { resetForm }) => {
-        sendFunc(values.message);
+        sendFunc({
+          message: values.message
+        });
         resetForm();
       }}
     >
@@ -22,6 +24,6 @@ const Conversation = React.memo(({ messages, sendFunc}) => (
       )}
     </Formik>
   </div>
-));
+);
 
 export default Conversation;

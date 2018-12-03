@@ -27,12 +27,16 @@ app.get('/', (req, res) => {
 
 const receiveMsg = async (msg) => {
   const db = await dbPromise;
-  const statement = await db.run('INSERT INTO messages (message) VALUES ($message)', {
-    $message: msg,
+  console.log(msg);
+
+  const statement = await db.run('INSERT INTO messages (message, room) VALUES ($message, $room)', {
+    $message: msg.message,
+    $room: msg.room
   });
-  io.emit('message received', {
+
+  io.to(msg.room).emit('message received', {
     id: statement.stmt.lastID,
-    msg,
+    ...msg,
   });
 };
 
@@ -50,8 +54,11 @@ io.on('connection', (socket) => {
     console.log('user disconnected'); // eslint-disable-line no-console
   });
   socket.on('message sent', receiveMsg);
+  socket.on('join room', (room) => {
+    socket.join(room);
+    console.log(room);
+  })
 });
-
 
 http.listen(8080, () => {
   console.log('listening on http://localhost:8080'); // eslint-disable-line no-console
