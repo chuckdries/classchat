@@ -36,6 +36,14 @@ const receiveMsg = async (msg) => {
   });
 };
 
+io.use((socket, next) => {
+  cookieParser()(socket.request, null, next);
+})
+io.use((socket, next) => {
+  debugger;
+  next();
+})
+
 io.on('connection', (socket) => {
   console.log('user connected'); // eslint-disable-line no-console
   socket.on('disconnect', () => {

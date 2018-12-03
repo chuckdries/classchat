@@ -29,6 +29,9 @@ export const checkAuth = async (req, res, next) => {
   next();
 };
 
+export const socketAuth = async (socket, next) => {
+}
+
 export const requireAuth = (req, res, next) => {
   if (!req.user) {
     // next('not logged in');
