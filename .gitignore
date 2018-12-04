@@ -76,7 +76,7 @@ typings/
 .fusebox/
 
 # build artifacts
-public/
+# public/
 
 # database 
 database.sqlite
