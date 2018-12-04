@@ -32,8 +32,10 @@ class Class extends React.Component{
   sendMsg(msg) {
     const newMsg = {
       ...msg,
-      room: this.room
-    }
+      date: Date.now(),
+      room: this.room,
+    };
+    console.log(newMsg);
     this.socket.emit('message sent', newMsg);
   }
   render() {
@@ -48,10 +50,5 @@ class Class extends React.Component{
     );
   }
 }
-// const Class = ({ match, messages }) => (
-//   <div>
-//     <h3>This is a class</h3>
-//   </div>
-// );
 
 export default Class;

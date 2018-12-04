@@ -1,24 +1,33 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
+import { connect } from 'react-redux';
 import './conversation.css';
+import Message from './Message';
 
-const Conversation = ({ messages, sendFunc}) => (
+const mapStateToProps = (state) => {
+  return {
+    user: state.user.currentUser,
+    loggedIn: state.user.loggedIn,
+  };
+};
+const Conversation = ({ messages, sendFunc, loggedIn, user }) => (
   <div className="conversation">
     <div className="message-container">
-      {messages.map((msg) => <p key={msg.id}>{msg.message}</p>)}
+      {messages.map((msg) => <Message key={msg.id} msg={msg} />)}
     </div>
     <Formik
       initialValues={{ message: '' }}
       onSubmit={(values, { resetForm }) => {
         sendFunc({
-          message: values.message
+          message: values.message,
+          author: loggedIn ? user.name : 'Anonymous'
         });
         resetForm();
       }}
     >
       {() => (
         <Form className="message-form flex">
-          <span className="form-name">Anonymous beaver</span>
+          <span className="form-name">{loggedIn ? user.name : 'Anonymous'}</span>
           <Field className="flex-auto" type="text" name="message"/>
           <input type="submit" value="send" />
         </Form>
@@ -27,4 +36,4 @@ const Conversation = ({ messages, sendFunc}) => (
   </div>
 );
 
-export default Conversation;
+export default connect(mapStateToProps)(Conversation);
