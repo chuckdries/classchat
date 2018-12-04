@@ -83,17 +83,20 @@ router.post('/login', async (req, res) => {
   }
   const user = await db.get('SELECT * FROM users WHERE email=?', email);
   if (!user) {
-    res.render('login', { error });
+    // res.render('login', { error });
+    res.send(error);
     return;
   }
   const matches = await bcrypt.compare(password, user.passwordHash);
   if (!matches) {
-    res.render('login', { error });
+    // res.render('login', { error });
+    res.send(error);
     return;
   }
   const sessionToken = v4();
   await db.run('INSERT INTO sessions (userid, sessionToken) VALUES (?,?)', [user.id, sessionToken]);
   res.cookie('sessionToken', sessionToken);
+  res.send('success');
 });
 
 router.post('/register', async (req, res) => {
@@ -121,6 +124,12 @@ router.post('/register', async (req, res) => {
   await db.run('INSERT INTO sessions (userid, sessionToken) VALUES (?,?)', [statement.stmt.lastID, sessionToken]);
   res.cookie('sessionToken', sessionToken);
   res.send('success');
+});
+
+router.get('/logout', async (req, res) => {
+  res.cookie('sessionToken', '', {
+    expires: new Date(Date.now() + 100),
+  });
 });
 
 router.get('/validate', async (req, res) => {

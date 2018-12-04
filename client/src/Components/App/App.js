@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import urljoin from 'url-join';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 // import io from 'socket.io-client';
 // import * as R from 'ramda';
 import './App.css';
@@ -42,6 +42,9 @@ class App extends Component {
         this.props.setUserData(response.data);
       });
   }
+  componentDidUpdate() {
+    console.log('update');
+  }
   render() {
     return (
       <div className="App">
@@ -59,4 +62,4 @@ class App extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

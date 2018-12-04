@@ -22,4 +22,8 @@
 }
 .form-name {
   margin-right: 10px;
+  margin-top: 10px;
+}
+.message-form[type="text"] {
+  padding: 10px;
 }

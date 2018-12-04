@@ -1,10 +1,21 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import urljoin from 'url-join';
 import { API_URL } from '../../config';
 
-const Register = () => {
+const mapStateToProps = (state) => {
+  return {
+    loggedIn: state.user.loggedIn
+  };
+};
+
+const Register = ({ loggedIn, history }) => {
+  if (loggedIn) {
+    return <Redirect to="/" />
+  }
   return (
     <Formik
       initialValues={{ email: '', name: '', password: '' }}
@@ -16,6 +27,7 @@ const Register = () => {
         })
           .then((response) => {
             console.log(response);
+            history.push('/');
           });
       }}
     >
@@ -36,4 +48,4 @@ const Register = () => {
   );
 };
 
-export default Register
+export default connect(mapStateToProps)(Register);

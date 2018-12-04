@@ -4,6 +4,7 @@ import './Nav.css';
 import { API_URL } from '../../config';
 import urljoin from 'url-join';
 import { connect } from 'react-redux';
+import { logout } from '../../Domain/Users/UsersActions';
 
 const mapStateToProps = (state) => {
   return {
@@ -12,7 +13,11 @@ const mapStateToProps = (state) => {
   };
 };
 
-const Nav = React.memo(({ location, loggedIn, user }) => {
+const mapDispatchToProps = (dispatch) => ({
+  logout: () => dispatch(logout()),
+});
+
+const Nav = React.memo(({ location, loggedIn, user, logout }) => {
   const match = matchPath(location.pathname, {
     path: '/class/:school/:classcode'
   });
@@ -37,11 +42,12 @@ const Nav = React.memo(({ location, loggedIn, user }) => {
           <div><Link to="/register">Sign Up</Link></div>
         </div>)}
       {loggedIn && (<div>
-        Welcome, { user.name }
+        <div>Welcome, { user.name }</div>
+        <div><a onClick={logout}>Log out</a></div>
       </div>)}
       </div>
     </nav >
   );
 });
 
-export default withRouter(connect(mapStateToProps)(Nav));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Nav));
