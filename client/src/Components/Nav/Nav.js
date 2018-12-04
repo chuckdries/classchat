@@ -24,7 +24,7 @@ const Nav = React.memo(({ location, loggedIn, user, logout }) => {
   return (
     <nav style={{ display: 'flex', flexDirection: 'column' }}>
       <div style={{ flex: 'auto' }}>
-        <h1>ClassChat</h1>
+        <h1><Link to="/">ClassChat</Link></h1>
         <h2>{match && match.params.school.toUpperCase()}</h2>
         <h3>{match && match.params.classcode.toUpperCase()}</h3>
       </div>

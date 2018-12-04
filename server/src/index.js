@@ -67,6 +67,14 @@ io.on('connection', (socket) => {
   });
 });
 
+app.get('/conversation/:school/:classcode', async (req, res) => {
+  const db = await dbPromise;
+  console.log('conversation get');
+  const messages = await db.all('SELECT * FROM messages WHERE room=? ORDER BY date', `${req.params.school}/${req.params.classcode}`);
+  console.log('messages', messages);
+  res.send(messages);
+});
+
 http.listen(8080, () => {
   console.log('listening on http://localhost:8080'); // eslint-disable-line no-console
 });

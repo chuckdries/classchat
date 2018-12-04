@@ -128,6 +128,8 @@ router.post('/register', async (req, res) => {
 });
 
 router.get('/logout', async (req, res) => {
+  const db = await dbPromise;
+  await db.run('DELETE FROM sessions WHERE sessionToken = ?', req.cookies.sessionToken);
   res.cookie('sessionToken', '', {
     expires: new Date(Date.now() + 100),
   });
