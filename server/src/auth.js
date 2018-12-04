@@ -75,7 +75,7 @@ router.post('/login', async (req, res) => {
   const {
     email,
     password,
-  } = req.params;
+  } = req.body;
   const db = await dbPromise;
   if (req.user) {
     // res.redirect(CLIENT_URL);
