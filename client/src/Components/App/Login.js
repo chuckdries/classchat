@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import urljoin from 'url-join';
 import { API_URL } from '../../config';
+import { setUserData } from '../../Domain/Users/UsersActions';
 
 const mapStateToProps = (state) => {
   return {
@@ -12,9 +13,15 @@ const mapStateToProps = (state) => {
   };
 };
 
-const Register = ({ loggedIn }) => {
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUserData: (data) => dispatch(setUserData(data))
+  };
+};
+
+const Register = ({ loggedIn, setUserData }) => {
   if (loggedIn) {
-    return <Redirect to="/" />
+    return <Redirect to="/" />;
   }
   return (
     <Formik
@@ -27,6 +34,14 @@ const Register = ({ loggedIn }) => {
         })
           .then((response) => {
             console.log(response);
+
+            axios(urljoin(API_URL, 'validate'), {
+              method: 'get',
+              withCredentials: true
+            })
+              .then((response) => {
+                setUserData(response.data);
+              });
           });
       }}
     >
@@ -46,4 +61,4 @@ const Register = ({ loggedIn }) => {
   );
 };
 
-export default connect(mapStateToProps)(Register);
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

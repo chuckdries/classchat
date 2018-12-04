@@ -78,7 +78,8 @@ router.post('/login', async (req, res) => {
   } = req.params;
   const db = await dbPromise;
   if (req.user) {
-    res.redirect(CLIENT_URL);
+    // res.redirect(CLIENT_URL);
+    res.send('already logged in');
     return;
   }
   const user = await db.get('SELECT * FROM users WHERE email=?', email);
